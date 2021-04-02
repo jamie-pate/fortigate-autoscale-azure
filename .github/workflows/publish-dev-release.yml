@@ -52,11 +52,9 @@ jobs:
         # use the head version from the output of step: create-branch
         # use allow-same-version option
         run: |
-          rm .npmrc
-          git rm --cached .npmrc
           npm config set sign-git-tag false
           npm config set sign-git-commit false
-          npm version ${{ steps['create-branch'].outputs['head-version'] }} -m "dev release: %s"
+          npm version ${{ steps['create-branch'].outputs['head-version'] }} -m "dev release: %s" --sign-git-tag=false
       - name: push changes
         # push commits only. Even though a tag is created, it will not be pushed.
         run: git push
