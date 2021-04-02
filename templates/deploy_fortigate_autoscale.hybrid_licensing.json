@@ -1727,7 +1727,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/fortinet/fortigate-autoscale-azure/3.3.0-dev.0/templates/linked_template.faz_integration.json"
+                    "uri": "https://raw.githubusercontent.com/fortinet/fortigate-autoscale-azure/3.3.0-dev.1/templates/linked_template.faz_integration.json"
                 },
                 "parameters": {
                     "UniqueResourceNamePrefix": {
@@ -1770,7 +1770,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/fortinet/fortigate-autoscale-azure/3.3.0-dev.0/templates/linked_template.function_app.json"
+                    "uri": "https://raw.githubusercontent.com/fortinet/fortigate-autoscale-azure/3.3.0-dev.1/templates/linked_template.function_app.json"
                 },
                 "parameters": {
                     "FunctionAppName": {
