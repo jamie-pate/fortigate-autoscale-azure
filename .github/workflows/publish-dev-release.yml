@@ -54,7 +54,8 @@ jobs:
         run: |
           npm config set sign-git-tag false
           npm config set sign-git-commit false
-          npm version ${{ steps['create-branch'].outputs['head-version'] }} -m "dev release: %s" --no-git-tag-version
+          npm version ${{ steps['create-branch'].outputs['head-version'] }} --no-git-tag-version
+          git commit -m "dev release: ${{ steps['create-branch'].outputs['head-version'] }}" --no-gpg-sign
       - name: push changes
         # push commits only. Even though a tag is created, it will not be pushed.
         run: git push
