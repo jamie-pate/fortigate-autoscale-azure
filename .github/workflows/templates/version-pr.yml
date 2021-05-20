@@ -11,9 +11,9 @@ pull-request:
     This pull request is automatically issued to bump version of branch: ${base-branch} to ${head-version} for a new release.
   assignees: # array of GitHub login
   reviewers: # array of GitHub login
-    - jamie-pate
+    # - jamie-pate
     - JaydenLiang
-    - Joel-Cripps
+    # - Joel-Cripps
   team-reviewers: # array of GitHub login
   labels: # array of string literal
     - version branch
