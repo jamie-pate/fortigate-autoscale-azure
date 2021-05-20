@@ -77,7 +77,7 @@ jobs:
       # open a versioning pull request for review
       - name: versioning pr
         id: versioning-pr
-        uses: fortinet/github-action-version-pr@f39da8fcebce40c290a08327e3243bd182715ac5
+        uses: fortinet/github-action-version-pr@a4f7bf720f9e2642a8f89d24e05e2918ea4bf013
         with:
           base-branch: ${{ github.event.inputs.base-branch }}
           head-branch: ${{ steps['create-branch'].outputs['head-branch'] }}
