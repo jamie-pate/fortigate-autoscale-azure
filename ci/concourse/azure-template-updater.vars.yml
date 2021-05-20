@@ -1,0 +1,29 @@
+# every entry here can use the ((var)) format again if
+gitrepo:
+  # url is the remote url to clone the repo
+  url:
+  base_branch:
+  head_branch:
+  private_key:
+registry_domain:
+azureapi:
+  client_id:
+  client_secret:
+  tenant:
+  subscription:
+vmimages:
+  location:
+  fgt:
+    byol:
+      offer:
+      publisher:
+      sku:
+    payg:
+      offer:
+      publisher:
+      sku:
+  faz:
+    byol:
+      offer:
+      publisher:
+      sku:

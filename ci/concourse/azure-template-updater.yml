@@ -1,0 +1,82 @@
+resource_types:
+  - name: azure-rest-api
+    type: docker-image
+    source:
+      repository: ((registry_domain))/azure-rest-api-resource
+      username: ((registry.username))
+      password: ((registry.password))
+resources:
+  - name: git-repo-fortigate-autoscale-azure
+    type: git
+    source:
+      uri: ((gitrepo.url))
+      branch: ((gitrepo.base_branch))
+      private_key: ((gitrepo.private_key))
+  - name: resource-azure-list-fortigate-images-byol
+    type: azure-rest-api
+    source:
+      client_id: ((azureapi.client_id))
+      client_secret: ((azureapi.client_secret))
+      tenant: ((azureapi.tenant))
+      url: 'https://management.azure.com/subscriptions/((azureapi.subscription))/providers/Microsoft.Compute/locations/((vmimages.location))/publishers/((vmimages.fgt.byol.publisher))/artifacttypes/vmimage/offers/((vmimages.fgt.byol.offer))/skus/((vmimages.fgt.byol.sku))/versions?api-version=2020-12-01'
+  - name: resource-azure-list-fortigate-images-payg
+    type: azure-rest-api
+    source:
+      client_id: ((azureapi.client_id))
+      client_secret: ((azureapi.client_secret))
+      tenant: ((azureapi.tenant))
+      url: 'https://management.azure.com/subscriptions/((azureapi.subscription))/providers/Microsoft.Compute/locations/((vmimages.location))/publishers/((vmimages.fgt.payg.publisher))/artifacttypes/vmimage/offers/((vmimages.fgt.payg.offer))/skus/((vmimages.fgt.payg.sku))/versions?api-version=2020-12-01'
+  - name: resource-azure-list-fortianalyzer-images-byol
+    type: azure-rest-api
+    source:
+      # from_local_path: ../params/source
+      client_id: ((azureapi.client_id))
+      client_secret: ((azureapi.client_secret))
+      tenant: ((azureapi.tenant))
+      url: 'https://management.azure.com/subscriptions/((azureapi.subscription))/providers/Microsoft.Compute/locations/((vmimages.location))/publishers/((vmimages.faz.byol.publisher))/artifacttypes/vmimage/offers/((vmimages.faz.byol.offer))/skus/((vmimages.faz.byol.sku))/versions?api-version=2020-12-01'
+
+jobs:
+  - name: demo
+    public: true
+    plan:
+      - get: git-repo-fortigate-autoscale-azure
+      - get: resource-azure-list-fortigate-images-byol
+      - get: resource-azure-list-fortigate-images-payg
+      - get: resource-azure-list-fortianalyzer-images-byol
+      - task: update-azure-template
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: node
+              tag: 14-alpine
+          inputs:
+            - name: git-repo-fortigate-autoscale-azure
+            - name: resource-azure-list-fortigate-images-byol
+            - name: resource-azure-list-fortigate-images-payg
+            - name: resource-azure-list-fortianalyzer-images-byol
+          outputs:
+            - name: git-repo-fortigate-autoscale-azure-updated
+          run:
+            path: 'sh'
+            args:
+              # the first arg is the script to call
+              - git-repo-fortigate-autoscale-azure/scripts/update-template.sh
+              # base repo folder (the repo the files will be updated from)
+              - git-repo-fortigate-autoscale-azure
+              # head repo folder (the repo the updated files will be contained)
+              - git-repo-fortigate-autoscale-azure-updated
+              # branch name
+              - ((gitrepo.head_branch))
+              # the following args must come in a pair: name=<something>,value=<something>
+              - name=fortigate-byol,value=../resource-azure-list-fortigate-images-byol/api-response.json
+              - name=fortigate-payg,value=../resource-azure-list-fortigate-images-payg/api-response.json
+              - name=fortianalyzer-byol,value=../resource-azure-list-fortianalyzer-images-byol/api-response.json
+              - name=fortigate-semver-range,value=>=6.4.4
+              - name=fortianalyzer-semver-range,value=>=6.4.4
+      - put: git-repo-fortigate-autoscale-azure
+        params:
+          repository: git-repo-fortigate-autoscale-azure-updated
+          branch: ((gitrepo.head_branch))
+          merge: true
