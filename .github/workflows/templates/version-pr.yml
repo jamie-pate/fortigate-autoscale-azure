@@ -13,7 +13,7 @@ pull-request:
   reviewers: # array of GitHub login
     - jamie-pate
     - JaydenLiang
-    # - Joel-Cripps
+    - Joel-Cripps
   team-reviewers: # array of GitHub login
   labels: # array of string literal
     - version branch
