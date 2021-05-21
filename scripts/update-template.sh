@@ -25,6 +25,7 @@ if [ -n "$exists" ]; then
 else
     echo "branch not found"
     eval "git checkout -b $3"
+    eval "git branch -u push-target $3"
 fi
 
 
