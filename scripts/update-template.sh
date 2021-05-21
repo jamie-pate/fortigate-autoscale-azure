@@ -43,5 +43,5 @@ npm run lint-fix
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git add -u
-git commit -m "auto update by Azure marketplace offer changes" --no-gpg-sign
+git commit -m "auto update by Azure marketplace offer changes" --no-gpg-sign --allow-empty
 
