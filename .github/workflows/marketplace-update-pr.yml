@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: create pr
         id: create-pr
-        uses: fortinet/github-action-version-pr@1.0.4
+        uses: fortinet/github-action-version-pr@1.0.5
         with:
           base-branch: marketplace_updates
           head-branch: main
