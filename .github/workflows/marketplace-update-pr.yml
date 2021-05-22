@@ -23,8 +23,8 @@ jobs:
         id: create-pr
         uses: fortinet/github-action-version-pr@1.0.5
         with:
-          base-branch: marketplace_updates
-          head-branch: main
+          base-branch: main
+          head-branch: marketplace_updates
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-create-draft: false
           pr-fail-if-exist: false
