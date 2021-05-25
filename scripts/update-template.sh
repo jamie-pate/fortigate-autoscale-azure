@@ -29,8 +29,11 @@ apk --no-cache add git > /dev/null
 # force drop the current working branch $3 and checkout main to replace it
 # eval "git checkout main && git pull && git branch -d $3 && git checkout -b $3 && git branch -u push-target $3"
 
-# checkout base branch ($1) into head branch ($2) for new changes
-git checkout $2 || git checkout $1 -b $2
+# change dir to the git repo directory ($1)
+cd $1
+
+# checkout base branch ($2) into head branch ($3) for new changes
+git checkout $2 || git checkout $1 -b $3
 
 # do npm install and build project before running scripts
 npm install

@@ -57,10 +57,10 @@ jobs:
             - name: resource-azure-list-fortigate-images-payg
             - name: resource-azure-list-fortianalyzer-images-byol
           run:
-            path: 'sh'
+            path: 'git-repo-fortigate-autoscale-azure/scripts/update-template.sh'
             args:
-              # the first arg is the script to call
-              - git-repo-fortigate-autoscale-azure/scripts/update-template.sh
+              # directory to the github repo
+              - git-repo-fortigate-autoscale-azure
               # name of the base branch
               - ((gitrepo.base_branch))
               # name of the head branch that will contain the changes
