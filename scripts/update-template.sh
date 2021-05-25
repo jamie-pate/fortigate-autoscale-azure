@@ -8,26 +8,29 @@ git --version
 node --version
 npm --version
 
-# clone the repo from base ($1) to head ($2)
-echo "git clone $1 $2"
-git clone $1 $2
+# # clone the repo from base ($1) to head ($2)
+# echo "git clone $1 $2"
+# git clone $1 $2
 
-cd $2
+# cd $2
 
-git fetch -fpP
+# git fetch -fpP
 
-# check if local branch exists
-exists=`git show-ref refs/heads/$3`
-echo "branch $3 ref: $exists"
-if [ -n "$exists" ]; then
-    echo "branch exists, replace it with main"
-    eval "git branch -d $3"
-else
-    echo "branch not found"
-fi
+# # check if local branch exists
+# exists=`git show-ref refs/heads/$3`
+# echo "branch $3 ref: $exists"
+# if [ -n "$exists" ]; then
+#     echo "branch exists, replace it with main"
+#     eval "git branch -d $3"
+# else
+#     echo "branch not found"
+# fi
 
 # force drop the current working branch $3 and checkout main to replace it
-eval "git checkout main && git pull && git branch -d $3 && git checkout -b $3 && git branch -u push-target $3"
+# eval "git checkout main && git pull && git branch -d $3 && git checkout -b $3 && git branch -u push-target $3"
+
+# checkout base branch ($1) into head branch ($2) for new changes
+git checkout $2 || git checkout $1 -b $2
 
 # do npm install and build project before running scripts
 npm install
