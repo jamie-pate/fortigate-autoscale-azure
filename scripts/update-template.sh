@@ -3,10 +3,10 @@
 exec 3>&1 # make stdout available as fd 3 for the result
 exec 1>&2 # redirect all output to stderr for logging
 
-apk add --update libsecret python git nodejs npm > /dev/null
-git --version
-node --version
-npm --version
+# apk add --update libsecret python git nodejs npm > /dev/null
+# git --version
+# node --version
+# npm --version
 
 # # clone the repo from base ($1) to head ($2)
 # echo "git clone $1 $2"
